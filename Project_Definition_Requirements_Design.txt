@@ -1,0 +1,145 @@
+# ISO 15939 Measurement Process Simulator
+
+## 1. Project Definition
+This project is a Java Swing desktop application that simulates the 5-step ISO/IEC 15939 software measurement process in a wizard-style interface.
+
+### Objectives
+- Collect session/profile information
+- Allow the user to choose quality scope through quality type, mode, and scenario
+- Display predefined quality dimensions and metrics
+- Calculate metric scores from raw data
+- Analyse results through weighted averages, radar chart, and gap analysis
+
+## 2. Functional Requirements
+
+### Step 1 - Profile
+- The system shall collect Username, School, and Session Name.
+- The system shall validate required fields before moving forward.
+- The system shall display user-friendly warning messages.
+
+### Step 2 - Define
+- The system shall allow selecting exactly one Quality Type.
+- The system shall allow selecting exactly one Mode.
+- The system shall allow selecting exactly one Scenario.
+- The system shall filter scenarios according to selected mode and quality type.
+
+### Step 3 - Plan
+- The system shall display predefined dimensions and metrics in read-only tabular format.
+- The system shall show metric coefficient, direction, range, and unit.
+
+### Step 4 - Collect
+- The system shall show raw values for all metrics.
+- The system shall calculate a score between 1 and 5 for every metric.
+- The system shall round the score to the nearest 0.5.
+
+### Step 5 - Analyse
+- The system shall calculate dimension-based weighted average scores.
+- The system shall display dimension scores using progress bars.
+- The system shall display a radar chart of all dimensions.
+- The system shall identify the lowest scoring dimension.
+- The system shall display gap value and quality level.
+
+## 3. Non-Functional Requirements
+- The application shall run with Java SE 17 or higher.
+- The application shall not use external libraries.
+- The application shall compile and run from the command line.
+- The design shall separate UI, data, and business logic.
+- The interface shall remain visually consistent and easy to follow.
+
+## 4. Design Overview
+
+### Architectural Pattern
+- **MVC-inspired separation**
+  - **Model:** domain data (`Profile`, `Metric`, `Dimension`, `Scenario`, result classes)
+  - **View/UI:** Swing panels and reusable components
+  - **Controller/Service:** navigation, score calculation, and analysis logic inside `MainFrame`, `ScoreCalculator`, and `AnalysisService`
+
+### Wizard Structure
+- `CardLayout` is used to display one step at a time.
+- `StepIndicatorPanel` shows active and completed steps.
+
+## 5. Class Design
+
+### Core Classes
+- `app.Main` - application entry point
+- `ui.MainFrame` - main window and step navigation
+- `ui.ProfilePanel` - Step 1 screen
+- `ui.DefinePanel` - Step 2 screen
+- `ui.PlanPanel` - Step 3 screen
+- `ui.CollectPanel` - Step 4 screen
+- `ui.AnalysePanel` - Step 5 screen
+- `ui.components.StepIndicatorPanel` - step progress UI
+- `ui.components.RadarChartPanel` - Java2D radar chart rendering
+- `data.ScenarioRepository` - hard-coded scenario data source
+- `service.ScoreCalculator` - metric score calculation service
+- `service.AnalysisService` - dimension averages and gap analysis service
+- `model.AppState` - application session state holder
+- `model.Profile`, `model.Scenario`, `model.Dimension`, `model.Metric` - core entities
+- `model.DimensionResult`, `model.GapAnalysisResult` - result objects
+
+## 6. Data Design
+Two modes and two scenarios for each mode are included:
+- Education
+  - Scenario C - Team Alpha LMS
+  - Scenario D - Team Beta LMS
+- Health
+  - Scenario A - Team MedCore
+  - Scenario B - Team CareFlow
+
+Each scenario includes predefined dimensions and metrics with:
+- coefficient
+- direction
+- valid range
+- unit
+- raw value
+
+## 7. Calculation Rules
+
+### Metric Score
+For higher-is-better metrics:
+
+`score = 1 + ((value - min) / (max - min)) * 4`
+
+For lower-is-better metrics:
+
+`score = 5 - ((value - min) / (max - min)) * 4`
+
+Rules:
+- score is clamped to `1.0 - 5.0`
+- score is rounded to nearest `0.5`
+
+### Dimension Score
+`dimensionScore = Σ(metricScore × metricCoefficient) / Σ(metricCoefficient)`
+
+### Gap Analysis
+- lowest dimension is selected
+- `gap = 5.0 - score`
+- quality level:
+  - `Excellent` >= 4.5
+  - `Good` >= 3.5
+  - `Needs Improvement` >= 2.5
+  - `Poor` < 2.5
+
+## 8. Screen Design Summary
+- **Profile:** text fields and validation
+- **Define:** radio buttons and single scenario list selection
+- **Plan:** read-only table
+- **Collect:** calculated score table
+- **Analyse:** progress bars, radar chart, and gap analysis text area
+
+## 9. Test Checklist
+- [ ] Step 1 blocks navigation when fields are empty
+- [ ] Step 2 allows only one quality type, one mode, one scenario
+- [ ] Step 3 loads scenario metrics correctly
+- [ ] Step 4 score calculation is correct
+- [ ] Step 5 weighted averages are correct
+- [ ] Gap analysis identifies the lowest dimension
+- [ ] Application compiles and runs from command line
+
+## 10. Submission Notes
+Before submitting:
+1. Replace placeholder student information in `README.txt`
+2. Re-compile using the provided commands
+3. Run the app and verify all 5 steps
+4. Push the project to your own public GitHub repository
+5. Keep the screenshot in the repository root
