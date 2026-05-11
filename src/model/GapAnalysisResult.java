@@ -1,3 +1,5 @@
+package model;
+
 public class GapAnalysisResult {
 
     private final String lowestDimension;

@@ -1,3 +1,10 @@
+package ui;
+
+import model.AppState;
+import model.Dimension;
+import model.Metric;
+import model.Scenario;
+import service.AnalysisService;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;

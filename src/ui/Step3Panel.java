@@ -1,3 +1,9 @@
+package ui;
+
+import model.AppState;
+import model.Dimension;
+import model.Metric;
+import model.Scenario;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;

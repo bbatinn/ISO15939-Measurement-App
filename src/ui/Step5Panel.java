@@ -1,3 +1,10 @@
+package ui;
+
+import model.AppState;
+import model.Dimension;
+import model.GapAnalysisResult;
+import model.Scenario;
+import service.AnalysisService;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -40,17 +47,20 @@ public class Step5Panel extends JPanel {
         summaryLabel = new JLabel("", SwingConstants.CENTER);
         summaryLabel.setFont(new Font("SansSerif", Font.PLAIN, 14));
         summaryLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        add(summaryLabel, BorderLayout.SOUTH);
 
         JPanel navPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JButton back = new JButton("Back");
         JButton restart = new JButton("Restart");
         navPanel.add(back);
         navPanel.add(restart);
-        add(navPanel, BorderLayout.PAGE_END);
+
+        JPanel southPanel = new JPanel(new BorderLayout(10, 10));
+        southPanel.add(summaryLabel, BorderLayout.CENTER);
+        southPanel.add(navPanel, BorderLayout.SOUTH);
+        add(southPanel, BorderLayout.SOUTH);
 
         back.addActionListener(e -> frame.showCard("Step4"));
-        restart.addActionListener(e -> frame.showCard("Step1"));
+        restart.addActionListener(e -> frame.resetApplication());
     }
 
     public void refresh() {

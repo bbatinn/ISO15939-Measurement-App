@@ -1,3 +1,5 @@
+package model;
+
 public class AppState {
 
     private Profile profile;
@@ -42,6 +44,13 @@ public class AppState {
                 }
             }
         }
+    }
+
+    public void reset() {
+        profile = null;
+        qualityType = null;
+        mode = null;
+        selectedScenario = null;
     }
 
     public boolean hasScenario() {

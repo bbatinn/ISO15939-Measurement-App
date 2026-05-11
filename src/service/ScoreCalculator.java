@@ -1,3 +1,5 @@
+package service;
+
 public class ScoreCalculator {
 
     public static double calculate(double value, double min, double max, boolean higher) {

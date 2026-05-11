@@ -1,3 +1,5 @@
+package model;
+
 public class Profile {
 
     private final String username;

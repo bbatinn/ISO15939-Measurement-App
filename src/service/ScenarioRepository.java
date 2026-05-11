@@ -1,3 +1,8 @@
+package service;
+
+import model.Dimension;
+import model.Metric;
+import model.Scenario;
 import java.util.ArrayList;
 import java.util.List;
 

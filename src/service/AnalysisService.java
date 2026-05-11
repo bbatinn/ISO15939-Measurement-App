@@ -1,3 +1,8 @@
+package service;
+
+import model.Dimension;
+import model.GapAnalysisResult;
+import model.Metric;
 import java.util.ArrayList;
 import java.util.List;
 

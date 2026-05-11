@@ -1,3 +1,5 @@
+package model;
+
 public class Metric {
 
     private final String name;

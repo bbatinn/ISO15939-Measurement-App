@@ -1,3 +1,8 @@
+package ui;
+
+import model.AppState;
+import model.Scenario;
+import service.ScenarioRepository;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;

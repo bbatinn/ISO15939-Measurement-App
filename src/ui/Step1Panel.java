@@ -1,3 +1,7 @@
+package ui;
+
+import model.AppState;
+import model.Profile;
 import javax.swing.*;
 import java.awt.*;
 
@@ -52,5 +56,11 @@ public class Step1Panel extends JPanel {
             state.setProfile(new Profile(username.getText().trim(), school.getText().trim(), session.getText().trim()));
             frame.showCard("Step2");
         });
+    }
+
+    public void reset() {
+        username.setText("");
+        school.setText("");
+        session.setText("");
     }
 }
